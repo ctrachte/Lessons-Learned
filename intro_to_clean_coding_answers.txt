@@ -1,0 +1,134 @@
+﻿In your own words, explain what clean code is and why it is important.
+- Clean coding means writing your code in a way that will make it efficient, readable (especially by others) and easy to maintain. This includes factoring in 'DRY' principles, using proper Naming and ensuring your code is self-documenting.
+- A good rule of thumb is if the code looks too complicated, consider breaking it apart and refactoring.
+- Clean code is essential to maximize efficiency and reduce rework. 
+
+Read this article about Toyota and their use of bad code. Although you may not yet understand all of the topics discussed, think about another commonly used object that relies on computers and explain what would happen if the code was not created to an acceptable standard.
+- Very interesting, I may include this incident in a future study on ethics for my MBA. 
+
+Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+
+I would not consider it to be clean code because of the indentation and the use of ambiguous variable names. I also added the final 'ELSE' to catch improper units.
+
+FUNCTION changeTempUnits(degrees, units)                      // Creating a new function
+ IF units = "F" THEN                             // Check if y is equal "F"
+   SET temperature to (degrees−32) * (5/9)       // Formula to convert degrees fahrenheit to celsius
+   PRINT temperature                             // Print result
+ ELSE IF units = "C" THEN                        // If y not equal to "F", check if equal to "C"
+   SET temperature to degrees * 1.8000 + 32.00   // Formula to convert degrees celsius to fahrenheit
+   PRINT temperature                             // Print result
+ ELSE                                            // Tell user units are incorrect.
+   PRINT 'improper units'    	                      
+ END IF
+END FUNCTION
+
+Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+
+It's honestly not bad, my only concern is 'sum' and 'total' being too similar in meaning. I  would change total to count. It also looks like there's some extra spaces before 'SET'.
+
+FUNCTION calcPercent(sum, count)
+ IF NOT(total = 0) THEN
+   SET percentage to sum / count * 100
+ ELSE
+   PRINT "Sorry, cannot divide by 0"
+ END IF
+ PRINT percentage
+END FUNCTION
+
+Using pseudocode, refactor the code for the following examples using the principles you have learned in this checkpoint.
+
+a. The following function prints the subtotal of a customer's transaction and receives payment accordingly.
+
+FUNCTION checkOutCustomer(subTotal, discountRate, paymentType)
+
+   SET total to subTotal * discountRate + (subTotal * tax)  //simplify by moving total calculation to a variable
+   PRINT "Your total due is: " + total
+   CALL getPayment RETURNING amount                         // move this outside the conditional to avoid repetition
+
+   IF paymentType = 'CASH' THEN
+       PRINT "Change due: " + amount - total
+   ELSE IF paymentType = 'CREDIT CARD' THEN
+       PRINT "Your credit card has been charged: " + total
+   END IF
+
+END FUNCTION
+
+b. The following function checks out a book if there are no issues with the guest's account.
+
+// This needs to be broken apart into seperate functions:
+
+FUNCTION isApprovedCheckout(book, guest)
+  RETURN guest.accountActive AND NOT(guest.hasOverdueBooks) AND guest.outstandingFees = 0
+END FUNCTION
+
+FUNCTION checkoutBook(book, guest)
+ IF isApprovedCheckout(book, guest) THEN
+   APPEND book to guest.books
+   SET book.status to "Checked Out"
+   PRINT "Your books have been issued."
+ ELSE
+     PRINT "Unable to check out book."
+ END IF
+END FUNCTION
+
+c. The following class is a code snippet that should support the transactions a customer can perform at an ATM.
+
+//refactored some functions and variable names to be more descriptive. 
+//defined user's account balance outside functions.
+
+CLASS BankAccount
+
+ SET accountBalance to customer.accountBalance
+
+ FUNCTION displayBalance
+    PRINT "You have: " + accountBalance
+ END FUNCTION
+
+ FUNCTION deposit(amountEntered)
+    SET accountBalance to accountBalance + amountEntered
+    displayBalance()
+ END FUNCTION
+
+ FUNCTION withdraw(amountEntered)
+     IF accountBalance > amountEntered THEN
+       SET accountBalance to accountBalance - amountEntered
+       displayBalance()
+     ELSE 
+       PRINT 'Insufficient Funds'
+       displayBalance()                      
+     END IF
+ END FUNCTION
+
+// IMPORTANT NOTE: ***I would rather remove this function entirely**** as it is not transaction related, but since I do not have more context as to why it's included I simply refactored.
+ FUNCTION verifyAccounts (customer)
+     IF NOT(customer.hasCreditCard) THEN
+         CALL offerCreditCard
+     ELSE IF NOT (customer.hasCheckingAccount) THEN
+         CALL offerCheckingAccount
+     END IF 
+ END FUNCTION
+
+END
+
+6. Square Given an array of integers, find out whether the sum of the integers is a perfect square. If it is a perfect square, return the square root, otherwise return the sum.
+
+ - Written in JavaScript as that is what I'm most familiar with.
+
+function isSquare (array) {
+  var sum = array.reduce((accumulator, currentValue) => accumulator + currentValue);  // reduces the array to a single sum by adding values consecutively
+  return ((Math.sqrt(sum) % 1) ? Math.sqrt(sum) : sum);                               // checks if the remainder after square root of sum is 0, returns sqrt(sum) if 0, sum if any other number, or error.
+}
+
+7. Duplicate Given an array of integers, find out whether the array contains any duplicate elements. The function should return true if any value appears at least twice in the array, and false if every element is distinct.
+
+function checkDuplicates (array) {
+  let areDuplicates = false;                                  // we start by assuming there are no duplicates
+  for (var i = 0; i<=array.length; i++) {                     // then loop through the array
+    let remainingValues = array.slice(i+1, array.length);     // sets the remaining values to be searched for duplicates
+    if (remainingValues.includes(array[i])) {                 // checks remaining values for array int at the index
+      areDuplicates = true;                                   // we found a duplicate so lets set areDuplicates to true
+    } 
+  }
+  return areDuplicates;                                       // returns true or false
+}
+
