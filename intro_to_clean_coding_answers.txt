@@ -114,10 +114,17 @@ END
 
  - Written in JavaScript as that is what I'm most familiar with.
 
-function isSquare (array) {
-  var sum = array.reduce((accumulator, currentValue) => accumulator + currentValue);  // reduces the array to a single sum by adding values consecutively
-  return ((Math.sqrt(sum) % 1) ? Math.sqrt(sum) : sum);                               // checks if the remainder after square root of sum is 0, returns sqrt(sum) if 0, sum if any other number, or error.
+function isSquare(array) {
+  var sum = array.reduce(
+    (accumulator, currentValue) => accumulator + currentValue
+  ); // reduces the array to a single sum by adding values consecutively
+  var squareRoot = Math.sqrt(sum); // stores the sqrt in a variable
+  return sum > 0 && squareRoot % 1 === 0 ? squareRoot : sum;
+  // checks if the remainder after square root of sum is 0, returns sqrt(sum) if 0, sum if any other number, or error.
 }
+// testing:
+console.log(isSquare([4, 5])); // should output 3
+console.log(isSquare([2, 4, 6])); // should output 12
 
 7. Duplicate Given an array of integers, find out whether the array contains any duplicate elements. The function should return true if any value appears at least twice in the array, and false if every element is distinct.
 
