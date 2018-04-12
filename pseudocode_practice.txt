@@ -40,6 +40,13 @@ Using the pseudocode you wrote for the previous question, implement it in any co
 in JavaScript: 
 
 function matchEntry( desiredEntry, phonebook ) {
- let match = phonebook.filter(entry => entry===desiredEntry);
+ let match = phonebook.filter(entry => {
+   return entry.name===desiredEntry.name
+   });
  return match;
 }
+// These are juniors tests, thanks for the advice!
+const phonebook = [{name: 'pete'}, {name: 'rob'}];
+const lookingFor = {name: 'rob'};
+
+console.log(matchEntry(lookingFor, phonebook));
