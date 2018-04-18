@@ -1,4 +1,10 @@
-**Things I have learned at Bloc**
+**This repository contains mostly notes for bloc's web developer coursework.**
+
+
+
+*Old notes from the Jan '18 of the program:*
+Things I have learned at Bloc:
+
 I have already been through the following through Udacity:
 - The basics of HTML and CSS
 - Command line/Git
