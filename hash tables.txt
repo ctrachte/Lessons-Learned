@@ -1,0 +1,88 @@
+What is a hash table?
+A data structure that contains values each attached to a unique hash key.
+
+What is hashing?
+Hashing is generating a unique value or values from a string of text using a mathematical function.
+
+How does a hash table store data?
+By sorting data into 'buckets' that each have a unique key.
+
+How are hash tables and objects different?
+An object can refer to any set of key/value pairs.
+A Hash table is one implementation of the key/value pair paradigm where values are converted to unique hash codes in order to index them.
+A hash table can never have two values at the same index.
+
+Determine whether you would use a hash table or an object to store each of the following pieces of data:
+
+A list of pets and their unique names.
+- object
+
+The name, age, and the birthday of your best friend.
+
+object
+
+The name and location of every company in a given city.
+
+hash table
+
+All of the books checked out from a library by a particular individual.
+
+hash table
+
+The primary and secondary phone numbers for a contact.
+
+object
+
+
+Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers. Store this information in a hash table.
+
+**Using pseudocode, because I have never built a hash table with any language and have not been given syntax or instructions in this lesson on how to.**
+
+CREATE table HashClient;
+createClient(name,phone,address);
+searchClients(HashClient,phone);
+
+function createClient(name, phone, address){
+  STORE name, address into HashClient and associate with phone number (value)
+}
+
+function searchClients(HashClient, phone) {
+ SEARCH HashClient for bucket associated with phone;
+ RETURN bucket;
+}
+
+Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+
+CREATE table HashInventory;
+scanItem(HashInventory,BarcodeId);
+
+function scanItem(HashInventory,BarcodeId){
+  IF
+   item barcode exists in HashInventory, update QTY value in hashInventory for this barcode value;
+  ELSE
+   STORE each item's values (name, descp, exp date, price) into hashInventory and associate with barcode value;
+}
+
+Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
+
+CREATE table HashPublisher;
+CREATE table HashDate;
+
+addArticle(article);
+findArticle(article);
+
+function addArticle(newspaper){
+  STORE article name, date, content (etc) into HashPublisher and associate with publisher (value);
+  STORE article name, date, content (etc) into HashDate and associate with date (value);
+}
+
+function findArticle (HashPublisher, HashDate, keyword) {
+ IF keyword is date
+  SEARCH HashDate for bucket associated with keyword;
+   RETURN bucket;
+ ELSE IF keyword is publisher
+  SEARCH HashPublisher for keyword
+   RETURN bucket;
+ ELSE
+  RETURN statement concerning no matches or possible typo
+}
