@@ -1,0 +1,85 @@
+What is the main difference between a stack and a queue?
+- Stacks are LIFO and Queues are FIFO
+
+What are the similarities between stacks and queues?
+- they both handle requests/operations one by one in an ordered manner
+
+Imagine you are an engineer tasked with implementing the UNDO and REDO options in a word processor such as Microsoft Word. Which data structure would you use for each option and why?
+
+Undo or Redo should be LIFO (stack). Every operation you make in a word processor would be added to the stack, and then if you needed to undo or redo the last operation, it would be on the top of the stack.
+
+Given a string, reverse it using a stack. For example, the string "Bloc!" should be converted to "!colB".
+
+from our lesson:
+FUNCTION REVERSE(original)
+  INIT a new stack
+  FOR each character in original
+    CALL stack.push WITH character
+  END FOR
+  INIT reversed to empty string
+  WHILE stack is not empty
+    CALL stack.pop RETURNING character
+    APPEND character to reversed
+  END WHILE
+  RETURN reversed
+END FUNCTION
+
+// implemented using JavaScript
+
+function reverse(string) {
+
+  var letters = [];
+
+  for (var i = 0; i <string.length; i++) {
+    reversed.push(string[i]);
+  };
+
+  var reversed = [];
+
+  for (var i = letters.length; i >= 0; i--) {
+    reversed.push(letters[i]);
+  };
+
+  return reversed.join("");
+}
+
+console.log(reverse("BLOC!"));
+
+Implement the delete functionality of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure.
+
+To delete an item, take all of the elements in the queue one at a time and put them at the end of the queue, except for the last one which should be deleted and returned.
+
+CLASS Stack
+
+ FUNCTION pop(queue)
+
+ INIT a new queue 'newItems'
+
+  FOR (index equals queue length minus 1, index is >= 0, decrement index by 1)
+   APPEND element at index to newItems
+   DELETE element at index from queue
+  END FOR
+
+ SET itemToPop to queue
+ RETURN newStack, itemToPop
+
+ END FUNCTION
+
+END CLASS
+
+Fill in the methods for the following Queue class so that it will work as expected (FIFO).
+
+CLASS QUEUE
+
+ INIT new queue
+
+ FUNCTION enqueue(element, queue)
+   APPEND element to end of queue
+   RETURN  queue
+ END FUNCTION
+
+ FUNCTION dequeue (element, queue)
+   DELETE element at index 0 of queue
+ END FUNCTION
+
+END CLASS
