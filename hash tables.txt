@@ -33,56 +33,92 @@ The primary and secondary phone numbers for a contact.
 
 object
 
+**Below is an example function to create hash tables and their basic functions which I found on gitHub, since I had no prior knowledge of how to do this in JavaScript. I made sure to play with it and understand what it is doing first before using it here.**
+
+// Based on a gist from https://gist.github.com/alexhawkins/48d7fd31af6ed00e5c60 
+
+//hash table function which creates a hash table object with size of `max`
+
+var makeHashTable = function(max) {
+
+    var storage = [],
+        hashTableMethods = {
+
+            createHashIndex: function(key) {
+                var hash = 0;
+                for (var i = 0; i < key.length; i++) {
+                    hash = (hash << 5) - hash + key.charCodeAt(i);
+                    hash = hash >>> 0; //convert to 32bit unsigned integer
+                }
+                return Math.abs(hash % max);
+            },
+
+            add: function(key, value) {
+                if (key === undefined || value === undefined || key.length === 0 || value.length === 0)
+                    throw ('Cannot add Undefined')
+                else {
+                    var hashIndex = this.createHashIndex(key);
+                    storage[hashIndex] = value;
+                }
+                return this;
+            },
+            
+            find: function(key) {
+                var hashIndex = this.createHashIndex(key);
+                return key + ': ' + storage[hashIndex];
+            },
+
+        };
+
+    return hashTableMethods;
+};
+
 
 Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers. Store this information in a hash table.
 
-**Using pseudocode, because I have never built a hash table with any language and have not been given syntax or instructions in this lesson on how to.**
+var contactsToAdd = {
+    1234567890: ['John Smith','555 4th street'],
+    5555555555: ['Jane Smith', '555 4th street'],
+    4444444444: ['Colin Hash', '555 hash street'],
+    1234567897: ['Josey Wales', '555 ECMA street'],
+    3333334444: ['John Doe', '555 5th street'],
+    1112224445: ['Jane Doe', '555 5th street'],
+};
 
-CREATE table HashClient;
-createClient(name,phone,address);
-searchClients(HashClient,phone);
+var contactsHash = makeHashTable(10000);
 
-function createClient(name, phone, address){
-  STORE name, address into HashClient and associate with phone number (value)
+for (var key in contactsToAdd) {
+    contactsHash.add(key, contactsToAdd[key]);
 }
 
-function searchClients(HashClient, phone) {
- SEARCH HashClient for bucket associated with phone;
- RETURN bucket;
+console.log(contactsHash.find('1234567890'));
+
+contactsHash.add('5641239871', ['Allen Hunn', '123 1st street Philadelphia, PA']);
+
+console.log(contactsHash.find('5641239871'));
+
+**Build a system that allows a store owner to track their store's inventory using a hash table for storage.**
+
+
+var inventoryBarcodes = {
+    454563456: ['Table Saw',899.99],
+    781267: ['Hammer', 4.50],
+    45645644: ['Cordless Drill', 49.99],
+    1234567897: ['Coca-Cola 20oz', 1.76],
+    4578546: ['Plywood 10x5', 9.99],
+    42784642: ['Drywall Screws 100ct', 3.99],
+};
+
+var inventoryHash = makeHashTable(10000);
+
+for (var key in inventoryBarcodes) {
+    inventoryHash.add(key, inventoryBarcodes[key]);
 }
 
-Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+console.log(inventoryHash.find('454563456'));
 
-CREATE table HashInventory;
-scanItem(HashInventory,BarcodeId);
+inventoryHash.add('7778889942', ["Allen Hunn's Great guide to JavaScript", 999.99]);
 
-function scanItem(HashInventory,BarcodeId){
-  IF
-   item barcode exists in HashInventory, update QTY value in hashInventory for this barcode value;
-  ELSE
-   STORE each item's values (name, descp, exp date, price) into hashInventory and associate with barcode value;
-}
+console.log(inventoryHash.find('7778889942'));
 
-Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
-
-CREATE table HashPublisher;
-CREATE table HashDate;
-
-addArticle(article);
-findArticle(article);
-
-function addArticle(newspaper){
-  STORE article name, date, content (etc) into HashPublisher and associate with publisher (value);
-  STORE article name, date, content (etc) into HashDate and associate with date (value);
-}
-
-function findArticle (HashPublisher, HashDate, keyword) {
- IF keyword is date
-  SEARCH HashDate for bucket associated with keyword;
-   RETURN bucket;
- ELSE IF keyword is publisher
-  SEARCH HashPublisher for keyword
-   RETURN bucket;
- ELSE
-  RETURN statement concerning no matches or possible typo
-}
+// PLEASE NOTE  my examples use arrays for the value paired to the key, but the methods could easily be adapted to an object paired to each key. 
