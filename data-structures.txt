@@ -57,7 +57,7 @@ coolKids.findMember('Emily');
 
 e) What if Ava wants to allow a friend, "Melissa", to cut in line in front of her? How would you code this so Melissa appears before Ava?
 
-coolKids.cut('Ava','Melissa');
+coolKids.cut('Melissa','Ava');
 
 f) If Patrick wants to leave the line, how would you delete him from the array?
 
