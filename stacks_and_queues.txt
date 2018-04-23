@@ -29,16 +29,15 @@ END FUNCTION
 function reverse(string) {
 
   var letters = [];
-
-  for (var i = 0; i <string.length; i++) {
-    reversed.push(string[i]);
-  };
-
   var reversed = [];
 
-  for (var i = letters.length; i >= 0; i--) {
-    reversed.push(letters[i]);
-  };
+  for (var i = 0; i <string.length; i++) {
+    letters.push(string[i]);
+  }
+
+  for (var n = letters.length; n >= 0; n--) {
+    reversed.push(letters[n]);
+  }
 
   return reversed.join("");
 }
