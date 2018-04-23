@@ -11,53 +11,57 @@ a) Use an array input: ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
 // in JavaScript
 
 class Line {
-
- var members = ["Vivian", "Ava", "Josh", "Patrick", "Mike"];
+  constructor(names) {
+    this.members = names;
+  }
  
- function findMember (name) {
-  member = (members[name]) ? members[name] : name + " is not in this line!";
+ findMember (name) {
+  var member = (members.includes(name)) ?  name + ' is in ' + members.indexOf(name) + " place in line."
+   : name + " is not in this line!";
   return member;
  }
  
- function enterLine (person) {
-  members.append(person);
+ enterLine (person) {
+  members.push(person);
+  console.log(members);
  }
  
- function leaveLine (person) {
-  members.splice(members[person],1);
+ leaveLine (person) {
+  members.splice(members.indexOf(person),1);
+  console.log(members);
  }
- 
- function swapPositions (personLeaving, personEntering) {
-  members.splice(members[personLeaving],1,personEntering);
- }
- 
- function cut (personCutting, personToCut) {
-  members.splice(members[personToCut], 0, personCutting);
+
+ cut (personCutting, personToCut) {
+  members.splice(members.indexOf(personToCut), 0, personCutting);
+  console.log(members);
  }
 }
 
+var members = ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+var coolKids = new Line(members);
+
 b) Insert a new person, "Mary" at the end of the line. In other words, you should insert Mary after Mike.
 
-Line.enterLine('Mary');
+coolKids.enterLine('Mary');
 
 c) Find a person in line named "Josh." This function should return the position of 2 in the array, (recall that arrays are 0-based).
 
-Line.members['Josh'];
+coolKids.findMember('Josh');
 
 d) Find a person in line named "Emily." What should your function return if it does not find the item in the array?
 
-Line.findMember('Emily');
+coolKids.findMember('Emily');
 
 // will return Emily's place in line if she's there, or "Emily is not in this line!" if she's not.
 
 e) What if Ava wants to allow a friend, "Melissa", to cut in line in front of her? How would you code this so Melissa appears before Ava?
 
-Line.cut('Ava','Melissa');
+coolKids.cut('Ava','Melissa');
 
 f) If Patrick wants to leave the line, how would you delete him from the array?
 
-Line.leaveLine('Patrick');
-
+coolKids.leaveLine('Patrick');
 
 Provide another real-world example that you can model using a data structure.
 
