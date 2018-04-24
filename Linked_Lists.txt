@@ -1,0 +1,151 @@
+What are some pros and cons of using linked lists instead of arrays?
+Pros:
+- nodes do not waste memory because they are not stored consecutively
+- dynamic size
+Cons:
+- because nodes are not stored consecutively they take longer to find given their abritrary position in memory
+
+Come up with a real world example of a linked list.
+
+The best example I could find was that of a train.
+Train cars are each linked to their successor and predecessor in such a way that they can be loaded/unloaded connected/disconnected efficiently. 
+The body of the car would be the node, and the connectors would be the pointers.
+
+
+Programming Questions
+You may program the following questions in any language of your choice (JavaScript, pseudocode, etc.).
+
+Before beginning to code, write out a plan explaining how to solve the question.
+
+The Linked List push function should take a value, create a node, and add it to the end of a list. Below is a push function for a singly linked list. However, there is something wrong with it. Find the bug and fix the code.
+
+LinkedList.prototype.push = function(element) {
+ SET node = {
+   value: element,
+   next: null
+ }
+
+ IF the head node does not exist {
+   THEN SET head to node
+ }
+ ELSE {
+   SET currentNode to head
+  WHILE (currentNode.next) {
+   SET currentNode to currentNode.next
+   }
+  currentNode.next = node;
+ }
+}
+
+//Javascript implementation
+
+function LinkedList(){  
+  this.head = null;
+}
+
+LinkedList.prototype.push = function(val){
+    var node = {
+       value: val,
+       next: null
+    };
+    if(!this.head){
+      this.head = node;      
+    }
+    else{
+      current = this.head;
+      while(current.next){
+        current = current.next;
+      }
+      current.next = node;
+    }
+  };
+
+var list = new LinkedList();
+
+list.push(1);
+list.push(1); // duplicate value for testing
+list.push(2);
+list.push(3);
+list.push(4);
+
+console.log(list);
+
+
+Given an unsorted singly linked list, remove all duplicates from the linked list.
+Example
+Input: a -> c -> d -> d -> a
+Output: a -> c -> d
+
+// Function to remove duplicates
+
+// check if the list is long enough
+// Iterate through linked list adding each node an empty object.
+
+// Check each link and When a duplicate element is found, 
+// remove it by setting previous.next to the node after the node to be removed and update the linked list.
+
+LinkedList.prototype.removeDuplicates = function() {
+  if (!this.head || !this.head.next) {
+    console.log(
+      "List contains no duplicates."
+    );
+    return;
+  }
+
+  var nodes = {};
+
+  var pointer1 = this.head;
+  var pointer2 = pointer1.next;
+  nodes[pointer1.value] = true;
+
+  while (pointer2) {
+    var value = pointer2.value;
+    if (nodes[value]) {
+      pointer1.next = pointer2.next;
+    } else {
+      nodes[value] = true;
+      pointer1 = pointer2;
+    }
+    pointer2 = pointer2.next;
+  }
+};
+
+list.removeDuplicates();
+
+console.log(list);
+
+Given an unsorted singly linked list, reverse it.
+Example
+Input: a -> b -> c -> d
+Output: d -> c -> b -> a
+
+// Check if list is long enough to reverse
+// Loop through the list swapping positions of links
+// Reset head to the first in new list
+
+
+function reverseList(list) {
+  if (list.length < 2) {
+    console.log("list is too small to reverse");
+    return;
+  }
+
+  let first = list.head;
+  let second = first.next;
+
+  while (second) {
+    const third = second.next;
+    second.next = first;
+    first = second;
+    second = third;
+  }
+
+  list.head.next = null;
+  list.head = first;
+}
+
+revList = reverseList(list);
+
+console.log(list);
+ 
+
