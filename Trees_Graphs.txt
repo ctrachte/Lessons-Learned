@@ -1,0 +1,197 @@
+Calculating the distance between point A and point B:
+- for each node check the distance to the next node
+- add up each potential path to the finish without any duplicates
+- choose the shortest path
+
+This method is too long because you would end up traversing all paths in the entire city before finding the answer
+Instead use Heuristics:
+
+FUNCTION findPath(start, end)
+  IF start = end THEN
+    RETURN end
+  END IF
+  FOR each node that start connects to
+    IF the node is closer to end than start THEN
+      CALL findPath WITH node and end RETURNING path
+      RETURN start + path
+    END IF
+  END FOR
+END FUNCTION
+
+Create a file named graphs_and_trees_answers.txt and answer these questions in it.
+
+What is a binary tree and what makes it unique to other trees?
+
+A binary tree is a data structure where each parent node is connected to up to two child nodes.
+
+What is a heuristic?
+
+- a best guess algorithm used to estimate the the difference betweeen nodes or options, sacrificing accuracy for efficiency, potentially promoting bias.
+
+What is another problem besides the shortest-path problem that requires the use of heuristics?
+
+Your brain uses heuristics every day to make decisions and solve problems. For example, deciding what to wear today would require a heuristic decision. No one looks through every item of clothing in their closet before choosing a shirt.
+Chances are, you will shorten that decision by making a heuristic choice, like choosing the top-most shirt in your drawer (most available). Or if you know you will play tennis today, the first athletic shirt.
+
+What is the difference between a depth-first search and a breadth-first search?
+- depth first traverses nodes all the way to their end before backtracking.
+- breadth first traverses across all neighboring nodes before moving a level deeper in the tree.
+
+Explain in your own words what an undirected, a-cyclic, unweighted graph is.
+
+- unidirected means edges of each node do not point to a previous or next position. 
+- A-cyclic means the graph has a definite end, and does not flow continuously in a loop. 
+- Unweighted means every node has the same weight or cost to connect to the next node.
+
+
+What kind of graph is a binary search tree?
+
+- Directed, A-Cyclic, could be weighted or unweighted.
+
+Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
+
+Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
+
+FUNCTION findVal(start, value)
+ 
+ IF start.value is null
+  RETURN value does not exist
+ END IF
+
+ IF value is less than start.value
+  CALL findVal(left node, value)
+ ELSE IF value is greater than start.value
+  CALL findVal(right node, value)
+ ELSE 
+  RETURN value found
+ END IF
+
+END FUNCTION
+
+//implemented in Javascript
+// below functions to create tree based on code from https://khan4019.github.io/front-end-Interview-Questions/bst.html
+
+function Node(val) {
+  this.value = val;
+  this.left = null;
+  this.right = null;
+}
+
+function BinarySearchTree() {
+  this.root = null;
+}
+
+BinarySearchTree.prototype.push = function(val) {
+  var root = this.root;
+
+  if (!root) {
+    this.root = new Node(val);
+    return;
+  }
+
+  var currentNode = root;
+  var newNode = new Node(val);
+
+  while (currentNode) {
+    if (val > currentNode.value) {
+      if (!currentNode.left) {
+        currentNode.left = newNode;
+        break;
+      } else {
+        currentNode = currentNode.left;
+      }
+    } else {
+      if (!currentNode.right) {
+        currentNode.right = newNode;
+        break;
+      } else {
+        currentNode = currentNode.right;
+      }
+    }
+  }
+};
+// Create our binary tree and push values to it
+var binaryTree = new BinarySearchTree();
+binaryTree.push(8);
+binaryTree.push(3);
+binaryTree.push(10);
+binaryTree.push(1);
+binaryTree.push(6);
+binaryTree.push(14);
+binaryTree.push(4);
+binaryTree.push(7);
+binaryTree.push(13);
+
+// Search function I implemented myself:
+
+function search(rootNode, val) {
+  if (!rootNode) {
+    console.log("Value " + val + " does not exist in this tree");
+    return false;
+  }
+  if (val > rootNode.value) {
+    return search(rootNode.left, val);
+  } else if (val < rootNode.value) {
+    return search(rootNode.right, val);
+  } else {
+    console.log("Value " + val + " exists in this tree");
+    return true;
+  }
+}
+
+search(binaryTree.root, 11);
+
+Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
+
+Example: The distance between the nodes 4 and 10 is 4. The distance between the nodes 8 and 10 is 1. The distance between the nodes 1 and 14 is 4.
+
+**High level algorithm(s):**
+
+- finding the distance between function
+1.) using previous search function, check if both nodes exist
+2.) check if there is a root
+3.) check if both keys lie in the left, if they do, run recursively on left node
+4.) check if both keys lie in the right, if they do, run recursively on the right node
+5.) else, both nodes must lie in seperate directions, so call function to find distance from root for both, add them together.
+
+- distance from root function:
+1.) if both values the same return 0
+2.) else if root is greater than node, return 1 + recursively call on left node
+3.) else if root is less than node, return 1 + recursively call on right node
+
+//javascript implementation
+
+function distanceFromRoot(root, node) {
+  if (root.value === node) {
+    return 0;
+  } else if (root.value < node) {
+    return 1 + distanceFromRoot(root.left, node);
+  } else {
+    return 1 + distanceFromRoot(root.right, node);
+  }
+}
+
+function distanceBetween(root, node1, node2) {
+  if (search(binaryTree.root, node1) && search(binaryTree.root, node2)) {
+    if (!root) {
+      return "No distance between nodes!";
+    }
+    // Both lie in left
+    if (root.value > node1 && root.value > node2) {
+      return distanceBetween(root.left, node1, node2);
+    }
+    // Both lie in right
+    if (root.value < node1 && root.value < node2) {
+      return distanceBetween(root.right, node1, node2);
+    }
+    // Lie in opposite directions (Root is
+    // LCA of two nodes)
+    if (root.value >= node1 && root.value <= node2) {
+      return distanceFromRoot(root, node1) + distanceFromRoot(root, node2);
+    }
+  } else {
+    return "One or both of the selected nodes does not exist in the tree";
+  }
+}
+
+distanceBetween(binaryTree.root, 1, 18);
