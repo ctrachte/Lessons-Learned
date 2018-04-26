@@ -24,7 +24,8 @@ In the traveling salesman problem, If there are n cities, and we brute force try
 
 Determine the time complexity of the following snippet of code. It is commonly known as a linear search.
 
-- My first guess: Linear
+- My first guess (incorrect): Linear
+- Second guess (correct answer): Constant
 
 FUNCTION linearSearch(array, target)
  FOR each number in the array
