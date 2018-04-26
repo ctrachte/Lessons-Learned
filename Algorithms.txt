@@ -1,0 +1,79 @@
+Using proper pseudo-code, describe the following primitive algorithms:
+
+Making coffee;
+
+FUNCTION frenchPress (press,coffee, cup, water)
+
+ SET coffee to 8grams
+ SET water to 200ml
+ WHILE water is less than 200C
+  apply heat to water
+ END WHILE 
+ POUR water and coffee into press
+ CALL timer(4 minutes)
+ WHEN timer is equal to 0 minutes
+  place plunger on top of press
+  press plunger down to bottom of press
+ POUR coffee into cup
+
+END FUNCTION
+ 
+
+Washing dishes;
+
+FUNCTION loadDishWasher (sink, washer)
+ FOR each dish in sink
+  rinse with water for 5 seconds
+  APPEND dish to washer
+ END FOR
+ ADD soap to washer
+ CALL runWasher()
+END FUNCTION
+
+FUNCTION emptyDishWasher (washer, cabinet)
+ FOR each dish in washer
+  APPEND dish to cabinet
+ END FOR
+END FUNCTION
+
+
+A choice of your own.
+Petting the cat
+
+FUNCTION petCat (mood, isBiter)
+
+ IF mood is 'mad' OR isBiter THEN
+  RETURN 'DO NOT PET'
+ ELSE IF mood is 'hyper' 
+   pet the cat WITH CAUTION
+   RETURN 'You pet the cat carefully'
+ ELSE IF mood is 'sleepy'
+   pet the cat
+   RETURN 'You pet the cat'
+ ELSE IF mood is 'friendly'
+   pet the cat
+   RETURN 'You pet the cat'
+ ELSE
+  RETURN 'Do not pet, not worth the risk'
+ END IF
+
+END FUNCTION
+
+
+As with the knot algorithm, there may be more than one way to solve the problem. 
+It is essential to try to pick the best algorithm for a situation. Name three companies who created an algorithm that made them successful, e.g., Google's search algorithm. 
+It doesn't need to be a tech example (such as a recipe or manufacturing a product). 
+Google's algorithm produces more relevant results than other search engines; what about each of your cases make them stand out?
+- Carmax's business model for car sales (https://www.fool.com/investing/general/2013/12/04/why-this-unique-car-dealer-will-continue-outperfor.aspx)
+- Bloc's career-focused mentor-assisted curriculum
+- SpaceX's design for reusable rockets (https://en.wikipedia.org/wiki/SpaceX_reusable_launch_system_development_program)
+
+Hypothesize about what constitutes an efficient algorithm versus an inefficient algorithm.
+
+1.) An efficient algorithm prioritizes time complexity
+2.) An efficient algorithm portrays clearly the goal and the steps to get there
+3.) An efficient algorithm promotes reusability
+
+1.) An inefficient algorithm does not consider time
+2.) Steps are not clear, confusing, out of order, or do not accomplish the goal. 
+3.) Is tailored to a specific case and variables and could not be reused
