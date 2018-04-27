@@ -1,0 +1,88 @@
+What is a real-life scenario that uses linear search?
+- You need to write a note down. You reach into a jar of pens and begin trying each pen until one works, setting aside the ones that don't.
+
+What is a real-life scenario that uses binary search?
+- You need to look up 'programming' in the dictionary. you start by opening the dictionary up in the middle.'
+- Since you know P is more than halfway through the alphabet, you split the second half of the dictionary in half.
+- You repeat this process until you find the word.
+
+Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using linear search?
+- Six
+Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using binary search?
+- Three
+
+Given an unsorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+- If they're unsorted we must use a linear search, because a binary search requires an ordered array of items.
+
+Given a sorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+- Binary, because we know the time complexity is O(log n) which is faster than O(n) of a linear search.
+
+
+Programming Assignment:
+You and a friend have set a wager to see who can find the word "Albatross" in the dictionary the fastest. Write a program to allow you to win the bet.
+
+// since we know that 'Albatross' is going to be at the very beginning of the dictionary,
+// I believe a linear search will work fine, if we increment from the start.
+// This code is also much simpler.
+
+function linearSearch(dictionary, word) {
+  for (var i = 0; i < dictionary.length; i++) {
+    if (dictionary[i] === word) {
+      return i;
+    }
+  }
+}
+
+const dictionary = [
+  "Aardark",
+  "Albatross",
+  "Anteater",
+  "Apple",
+  "Art",
+  "Ask",
+  "Ate",
+  "Aztec"
+];
+
+console.log(linearSearch(dictionary, "Art"));
+
+// However, in most cases, a binary search will be faster:
+
+function binarySearch(dictionary, word) {
+  let start = 0;
+  let stop = dictionary.length - 1;
+  let middle = Math.floor((start + stop) / 2);
+
+  while (dictionary[middle] !== word && start < stop) {
+    if (word < dictionary[middle]) {
+      stop = middle - 1;
+    } else {
+      start = middle + 1;
+    }
+
+    middle = Math.floor((start + stop) / 2);
+  }
+
+  return dictionary[middle] !== word ? -1 : middle;
+}
+
+
+console.log(binarySearch(dictionary, "Ask"));
+
+
+You work at a pet store, and a child has asked you to net the only white-spotted goldfish from the fish tank. Write a program that will help you net the right fish.
+
+// Since the fish are obviously not lined up in order in the tank, we must use the linear search defined previously:
+
+const fisheys = [
+  "white-spotted",
+  "black",
+  "gold",
+  "black-spotted",
+  "orange",
+  "orange black-spotted",
+  "rock",
+  "snail"
+];
+
+console.log(linearSearch(fisheys, "white-spotted"));
