@@ -21,18 +21,6 @@ Given a sorted collection of a million items, which algorithm would you choose b
 Programming Assignment:
 You and a friend have set a wager to see who can find the word "Albatross" in the dictionary the fastest. Write a program to allow you to win the bet.
 
-// since we know that 'Albatross' is going to be at the very beginning of the dictionary,
-// I believe a linear search will work fine, if we increment from the start.
-// This code is also much simpler.
-
-function linearSearch(dictionary, word) {
-  for (var i = 0; i < dictionary.length; i++) {
-    if (dictionary[i] === word) {
-      return i;
-    }
-  }
-}
-
 const dictionary = [
   "Aardark",
   "Albatross",
@@ -44,9 +32,7 @@ const dictionary = [
   "Aztec"
 ];
 
-console.log(linearSearch(dictionary, "Art"));
-
-// However, in most cases, a binary search will be faster:
+//Since we know that a dictionary has a large number of ordered entries, a binary search will be faster:
 
 function binarySearch(dictionary, word) {
   let start = 0;
@@ -84,5 +70,13 @@ const fisheys = [
   "rock",
   "snail"
 ];
+
+function linearSearch(array, item) {
+  for (var i = 0; i < array.length; i++) {
+    if (array[i] === item) {
+      return i;
+    }
+  }
+}
 
 console.log(linearSearch(fisheys, "white-spotted"));
