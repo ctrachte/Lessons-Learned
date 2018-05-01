@@ -1,0 +1,86 @@
+Write pseudocode for bubble sort.
+
+FUNCTION swap (array, i, j)
+ SET temp to array[i]
+ SET array[i] to array[j]
+ SET array[j] to temp
+END FUNCTION
+
+FUNCTION bubbleSort(array)
+
+ SET SWAPPED to null
+
+ WHILE (swapped)
+
+  SET swapped to false
+
+   FOR i = 0, i < array.length, i++
+
+    IF array[i] and array[i+1] exist and array[i] is greater than array[i+1]
+      CALL swap(array, i, i+1)
+      SET swapped to true
+    END IF 
+
+   END FOR
+
+ END WHILE
+
+ RETURN ARRAY
+
+END FUNCTION
+
+Write pseudocode for quicksort.
+
+FUNCTION quicksort(array, left, right)
+
+ SET pivot to left + right divided by 2
+
+ WHILE (left <= right)
+
+  WHILE (array[left] < array[pivot])
+   INCREMENT left
+  END WHILE
+
+  WHILE (array[right] > array[pivot])
+   DECREMENT right
+  END WHILE
+  
+  IF (left <= right)
+   CALL swap(array, left,right)
+   INCREMENT left
+   DECREMENT right
+ 
+ END WHILE
+ 
+ RETURN left
+
+END FUNCTION
+
+We talked about time complexity in a previous checkpoint, and how to get an idea of the efficiency of an algorithm.
+After looking at the pseudocode for the above sorting methods, identify why merge sort and quick sort are much more efficient than the others. 
+Walking through each algorithm with a few sample collections may help.
+
+Bubble sort has a worst-case  and average time complexity of O(n²). The only advantage is that if the list is already sorted, it has a linear time complexity of O(n)
+This means if the array is pre-sorted, it will only need to iterate once. Otherwise, it will need to loop through the array n^2 times to sort each value individually.
+
+Insertion sort also has a worst-case and average time complexity of O(n²) and is very slow for the same reason. If the array is already sorted, it would have a linear time complexity
+However, since most arrays are not, it will have to iterate a great many times until each element is in the right place.
+
+Merge sort and Quick sort have an average time complexity of O(n log (n)),
+because of their ability to recursively divide the data set into smaller parts and sort/compare those parts, 
+rather than iterating through the whole array a ridiculous number of times to compare each value.
+
+All of the sorts addressed in this checkpoint are known as comparison sorts. Research bucket sort and explain how it works. What is the ideal input for bucket sort?
+
+Bucket sort takes in an array, a maximum value (M) and the number of inputs (n), and creates (M/n) ordered buckets.
+Each value in the array is then pushed into buckets according to where they fall in the min to max range.
+Each of the buckets are then sorted with a comparison algorithm of choice, usually insertion sort.
+Finally all buckets and values are joined into a single array and returned.
+
+Bucket sort is fastest (and significantly faster than comparison sorting methods) when every value in the array to be sorted is evenly spaced out. 
+This way, each bucket contains an even number of values, and the internal comparison sort for each bucket cannot bottle neck. In this case,
+the time complexity would be O(n)
+
+In the worst case scenario, if all values fall into one bucket, the algorithm will bottleneck at O(n²) time complexity.
+
+ 
